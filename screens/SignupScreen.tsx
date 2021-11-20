@@ -9,7 +9,7 @@ import Axios from 'axios'
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'>) {
 
-  const backendURL = 'http://18.224.36.104:3001' || "http://localhost:3001" ;
+  const backendURL = 'http://18.189.252.123:3001' || "http://localhost:3001" ;
 
 
   let [userinfo, setUserInfo] = useState({ 
