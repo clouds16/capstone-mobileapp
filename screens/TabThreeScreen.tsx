@@ -9,7 +9,7 @@ import Collapsible from 'react-native-collapsible';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SubTitle, Title } from 'chart.js';
 import Axios from 'axios'
-import Chart from './components/Chart'
+import Chart from './components/chart'
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
