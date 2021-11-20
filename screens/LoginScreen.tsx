@@ -17,7 +17,7 @@ export default function TabOneScreen({ navigation } : RootTabScreenProps<'Login'
   let [password, setPassword] = useState("")
   let [userID , setUserID] = useContext(GlobalState)
 
-  const backendurl = "http://localhost:3001"
+  const backendurl = "http://ec2-18-220-16-42.us-east-2.compute.amazonaws.com:3001" || "http:localhost:3001" ;
   
   function loginButtonPress(){
 
