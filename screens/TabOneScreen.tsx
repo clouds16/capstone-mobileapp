@@ -14,7 +14,7 @@ import Chart from './components/chart'
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'> ) {
 
   const userID = "616e339efc6733eb328488f7"
-  const backendURL = 'http://18.189.252.123:3001' || "http://localhost:3001" ;
+  const backendURL = 'http://18.224.36.104:3001' || "http://localhost:3001" ;
 
   const [userInfo , setUserInfo] = useState({
     fname : "" ,

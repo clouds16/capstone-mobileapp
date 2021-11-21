@@ -10,7 +10,7 @@ import Axios from 'axios'
 function Chart( { style , title } ) {
 
     const userID = "616e339efc6733eb328488f7"
-    const backendURL = 'http://18.189.252.123:3001' || "http://localhost:3001" ;
+    const backendURL = 'http://18.224.36.104:3001' || "http://localhost:3001" ;
 
 
     let [xaxis, setXAxis ] = useState([])
@@ -22,7 +22,7 @@ function Chart( { style , title } ) {
             console.log(res); 
             
             let dates = res.data.dates
-            let datesarr = [];
+            let datesarr = [] ;
 
             dates.forEach( (date) => {
               const sliceddate = date.slice(0,10) 
