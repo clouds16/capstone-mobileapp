@@ -1,5 +1,5 @@
 import * as React  from 'react';
-import {useState} from 'react'
+import {useState , useEffect , useContext} from 'react'
 import { StyleSheet , Button, TextInput , TouchableOpacity , Alert , ScrollView   } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
@@ -10,12 +10,11 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { SubTitle, Title } from 'chart.js';
 import Axios from 'axios'
 import Chart from './components/chart'
+import AppContext from '../components/AppContext'
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
-
-  const userID = "616e339efc6733eb328488f7";
-  const backendURL =  'http://18.224.36.104:3001' || "http://localhost:3001" ;
+  const myContext =  useContext(AppContext);
 
   let [weight, setWeight] = useState("")
   const [open, setOpen] = useState(false);
@@ -26,11 +25,12 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   ]);
 
   function onButtonSubmit() {
-    Axios.post(backendURL + '/profile/' + userID + '/updateweight' , {
+    Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/updateweight' , {
       weight: Number(weight) ,
       units:  "lbs" , 
-      user: userID ,  
+      user:  myContext.USERID ,  
     }).then(  (res)=> {
+      console.log(res)
       createTwoButtonAlert()
     } ).catch( e=> console.log(e))
   }

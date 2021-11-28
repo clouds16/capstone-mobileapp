@@ -15,10 +15,11 @@ export default function App() {
   const [backendServer , setBackendServer] =  useState("http://18.224.36.104:3001")
 
   const userSettings = {
-    userId,
-    backendServer,
-    setUserId
+    USERID: userId,
+    BACKENDSERVER : backendServer,
+    SETUSERID: setUserId
   };
+
 
 
   if (!isLoadingComplete) {

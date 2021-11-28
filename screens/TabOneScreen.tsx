@@ -1,5 +1,5 @@
 import * as React  from 'react';
-import {useState , useEffect} from 'react'
+import {useState , useEffect , useContext} from 'react'
 import { StyleSheet , Button, TextInput , ScrollView , SafeAreaView , Image} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
@@ -9,12 +9,13 @@ import {Line } from 'react-chartjs-2'
 import YoutubePlayer from 'react-native-youtube-iframe';
 import Axios from 'axios'
 import Chart from './components/chart'
+import AppContext from '../components/AppContext'
 
 
+//test changes to see if git acting up
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'> ) {
-
-  const userID = "616e339efc6733eb328488f7"
-  const backendURL = 'http://18.224.36.104:3001' || "http://localhost:3001" ;
+  
+  const myContext =  useContext(AppContext);
 
   const [userInfo , setUserInfo] = useState({
     fname : "" ,
@@ -22,10 +23,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     userID: ""
   })
 
-
-
     useEffect(()=> {
-      Axios.get(backendURL+ '/profile/' + userID)
+      Axios.get(myContext.BACKENDSERVER+ '/profile/' + myContext.USERID)
         .then( (res) =>  {
           console.log(res);
 
@@ -62,9 +61,9 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           <Image source={require('../assets/images/avatar.png')} style={styles.image} ></Image>
           <View style={styles.userinfo}> 
             <Text> Hello {userInfo.fname} , {userInfo.lname} </Text>
-            <Text> Workout Goal : Lose weight </Text>
+            <Text> Workout Goal :  </Text>
             <Text> Workout Schedule : Three Times a Week </Text>
-            <Text> Current Weight: 165 lbs</Text>
+            <Text> Current Weight: </Text>
           </View>
         </View>
 

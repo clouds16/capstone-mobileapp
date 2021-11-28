@@ -10,27 +10,26 @@ import GlobalState from '../user/user'
 import { STATEMENT_OR_BLOCK_KEYS } from '@babel/types';
 import AppContext from '../components/AppContext'
 
+
 export default function TabOneScreen({ navigation } : RootTabScreenProps<'Login'>) {
 
   const myContext =  useContext(AppContext);
-  const backendURL = myContext.backendURL;
-  console.log(backendURL , myContext.GlobalUserID)
 
   let [email, setEmail] = useState("")
   let [password, setPassword] = useState("")
-  let [userID , setUserID] = useContext(GlobalState)
+ 
 
   
   
   function loginButtonPress(){
 
     if (email && password) {
-      Axios.post(backendURL + '/login', {
+      Axios.post( myContext.BACKENDSERVER + '/login', {
         "email" : email ,
         "password" : password
       } ).then( (res) => {
         if (res.data._id) {
-          myContext.setUserID(res.data._id)
+          myContext.SETUSERID(res.data._id)
           navigation.push('Profile')
         }  else {
           console.log("couldnt not sign in")
@@ -47,7 +46,7 @@ export default function TabOneScreen({ navigation } : RootTabScreenProps<'Login'
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-      <Text> some text and url : {backendURL} </Text>
+    
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <TextInput
         style={styles.input}

@@ -1,49 +1,49 @@
 import * as React  from 'react';
-import {useState , useEffect} from 'react'
+import {useState , useEffect , useContext} from 'react'
 import { StyleSheet , Button, TextInput , ScrollView , SafeAreaView , Image} from 'react-native';
 
 import {Line } from 'react-chartjs-2'
 import { Text, View } from '../../components/Themed';
 import Axios from 'axios'
+import AppContext from '../../components/AppContext'
 
 
-function Chart( { style , title } ) {
+function Chart( { style , title }:any) {
 
-    const userID = "616e339efc6733eb328488f7"
-    const backendURL = 'http://18.224.36.104:3001' || "http://localhost:3001" ;
-
+  const myContext =  useContext(AppContext);
 
     let [xaxis, setXAxis ] = useState([])
     let [yaxis, setYAxis] = useState([])
+    const [loading, setLoading] = useState(false);
 
     useEffect(()=> {
-        Axios.get(backendURL+ '/profile/' + userID + '/weighthistory')
+      
+      console.log(myContext.BACKENDSERVER , myContext.USERID)
+        Axios.get(myContext.BACKENDSERVER+ '/profile/' + myContext.USERID + '/weighthistory')
           .then( (res) =>  {
             console.log(res); 
             
-            let dates = res.data.dates
-            let datesarr = [] ;
+            let dates = res.data.dates;
+            let datesarr : [] = [] ;
 
-            dates.forEach( (date) => {
-              const sliceddate = date.slice(0,10) 
-              datesarr.push(sliceddate)
+            console.log("1")
+
+            dates.forEach( (date:String ) => {
+              const sliceddate: String = date.slice(0,10) ;
+              datesarr.push(sliceddate);
+              console.log("loop")
+
             })
 
-
+            console.log("2")
             setXAxis( datesarr)
-            setYAxis(res.data.weight)
+            setYAxis(res.data.weight);
 
-
-            console.log(typeof res.data.dates[0] , res.data.dates[0] )
-
-
-            }).catch( e => alert("Could not find data"));
+            }).catch( e =>{
+              alert("Could not find data")});
             
       }, [] )
   
-
-
-
     const data = {
         labels: xaxis,
         datasets: [

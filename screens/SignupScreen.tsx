@@ -1,36 +1,37 @@
 import * as React  from 'react';
-import {useState} from 'react'
+import {useState , useContext } from 'react'
 import { StyleSheet , Button, TextInput  , Alert } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import Axios from 'axios'
+import AppContext from '../components/AppContext'
+
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'>) {
 
-  const backendURL = 'http://18.224.36.104:3001' || "http://localhost:3001" ;
 
+  const myContext =  useContext(AppContext);
 
-  let [userinfo, setUserInfo] = useState({ 
-    email: "",
-    password: ""
-  })
 
   let [email, setEmail] = useState("")
   let [password, setPassword] = useState("")
   let [fname, setFname] = useState("")
   let [lname, setLname] = useState("")
+  let [phone, setPhone] = useState("")
   let [age, setAge] = useState(0)
 
   function onButtonSubmit() {
-    Axios.post(backendURL + '/signup' , {
+    Axios.post(myContext.BACKENDSERVER + '/signup' , {
       'fname' : fname,
       'lname' : lname, 
       'email' : email,
-      'password' : password
+      'password' : password, 
+      'phone' : phone
     }).then( (res) => {
       console.log(res);
+      myContext.SETUSERID(res.data._id)
       navigation.push('Profile')
     }).catch( e => {
       console.log("could not create user")
@@ -59,6 +60,13 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'
         onChangeText={setLname }
         value={lname}
         placeholder="Last Name..."
+     
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={setPhone }
+        value={phone}
+        placeholder="Phone..."
      
       />
       <TextInput
