@@ -23,17 +23,10 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       }).catch( e =>  alert("Error loading videos"))
   }, [] )
 
-  return (
-    <View >
-      
+  return (  
       <ScrollView style={styles.scrollview}>
-        <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-        <Text style={styles.title}> Arms</Text>
         {
-          console.log("post use effect",videos)
-        }
-        {
-          videos.forEach( (video) => {
+          videos.map( (video) => {
             return (
             <>
             <Text> {video.title} </Text> 
@@ -41,8 +34,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           })
         }
       </ScrollView>  
-    
-    </View>
   );
 }
 

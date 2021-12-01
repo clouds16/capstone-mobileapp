@@ -12,7 +12,7 @@ import Chart from './components/chart'
 export default function TabOneScreen({ navigation }:RootTabScreenProps<'TabFour'>) {
 
   return (
-    <View style={styles.page}>
+
       <ScrollView > 
         
 
@@ -32,7 +32,7 @@ export default function TabOneScreen({ navigation }:RootTabScreenProps<'TabFour'
 
 
       </ScrollView>
-    </View>
+
   );
 }
 

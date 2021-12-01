@@ -48,7 +48,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
 
   return (
-    <View style={styles.page}>
+  
       <ScrollView > 
         <Text> Welcome {userInfo.fname } ,{userInfo.lname} </Text>
 
@@ -74,7 +74,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         </View>
 
       </ScrollView>
-    </View>
+
   );
 }
 
