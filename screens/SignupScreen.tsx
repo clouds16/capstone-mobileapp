@@ -45,8 +45,9 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'
 
   return (
     <View style={styles.container}>
+      <Text style={styles.logo} > MOTIVATR! </Text> 
       <Text style={styles.title}>Create An Account!</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+
 
       <TextInput
         style={styles.input}
@@ -89,11 +90,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'
         color="#841584"
         accessibilityLabel="Learn more about this purple button"/>
 
-      <Button
-        onPress={()=> navigation.push('Profile')}
-        title="quick login"
-        color="rgb(100, 166 ,231)"
-        accessibilityLabel="quicklogin "/>
+
     </View>
   );
 }
@@ -104,9 +101,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo : {
+    fontSize: 50,
+    fontWeight: 'bold',
+    color : '#841584',
+    padding: 20
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    margin: 20
   },
   separator: {
     marginVertical: 30,
@@ -121,3 +125,9 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 });
+
+// <Button
+// onPress={()=> navigation.push('Profile')}
+// title="quick login"
+// color="rgb(100, 166 ,231)"
+// accessibilityLabel="quicklogin "/>

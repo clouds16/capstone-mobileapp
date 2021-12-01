@@ -141,7 +141,7 @@ function LoginNavigator() {
         component={SignupScreen}
         options={{
           title: 'Sign Up',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
       <LoginTabs.Screen
@@ -149,7 +149,7 @@ function LoginNavigator() {
         component={LoginScreen}
         options={{
           title: 'Login',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="link" color={color} />,
         }}
       />
 

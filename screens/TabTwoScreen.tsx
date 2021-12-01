@@ -1,55 +1,46 @@
 import * as React  from 'react';
-import {useState} from 'react'
+import {useState , useEffect, useContext} from 'react'
 import { StyleSheet , Button, TextInput , ScrollView , SafeAreaView , Image} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
+import AppContext from '../components/AppContext'
 import YoutubePlayer from 'react-native-youtube-iframe'
+import Axios from 'axios'
+
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
+  const myContext =  useContext(AppContext);
+  let [videos, setVideos] = useState([]);
+
+  useEffect( ()=> {
+      Axios.get( myContext.BACKENDSERVER + '/dev/allvideos').then( (res) => {
+        console.log(res.data)
+        setVideos(res.data)
+        
+      }).catch( e =>  alert("Error loading videos"))
+  }, [] )
 
   return (
     <View >
       
-      <ScrollView>
+      <ScrollView style={styles.scrollview}>
+        <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
         <Text style={styles.title}> Arms</Text>
-        
-          <ScrollView horizontal={true}> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/>
-          </ScrollView>
-        
-
-        <Text style={styles.title}> Legs </Text>
-        
-          <ScrollView horizontal={true}> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/>
-          </ScrollView>
-        
-
-
-        <Text style={styles.title}> Core </Text>
-       
-          <ScrollView horizontal={true}> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/>
-          </ScrollView>
-      
-
-        <Text style={styles.title}> Chest</Text>
-          <ScrollView horizontal={true}> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/> 
-            <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/>
-          </ScrollView>
-      </ScrollView>
-      
+        {
+          console.log("post use effect",videos)
+        }
+        {
+          videos.forEach( (video) => {
+            return (
+            <>
+            <Text> {video.title} </Text> 
+            <YoutubePlayer height= {300} play={true} videoId={video.uri} /> </>)
+          })
+        }
+      </ScrollView>  
     
     </View>
   );
@@ -66,6 +57,9 @@ const styles = StyleSheet.create({
     color :  'black',
     height: 'auto', 
     borderRadius : 20
+  },
+  scrollview: {
+    height: 'auto'
   },
   horizontal : {
     margin: 10,

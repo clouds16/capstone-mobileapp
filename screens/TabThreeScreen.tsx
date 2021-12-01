@@ -11,10 +11,15 @@ import { SubTitle, Title } from 'chart.js';
 import Axios from 'axios'
 import Chart from './components/chart'
 import AppContext from '../components/AppContext'
+import {Dropdown } from 'react-native-element-dropdown'
+import MuscleDropDown from './components/muscledropdown'
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
   const myContext =  useContext(AppContext);
+
+
+
 
   let [weight, setWeight] = useState("")
   const [open, setOpen] = useState(false);
@@ -83,8 +88,26 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           <Button onPress = {onButtonSubmit} title="Add new weight" ></Button>
         </View>
 
-        <Text> Weight History </Text>
-        <Chart title="Weight vs time HALV"  style={styles.container}  />
+        <View  style= {styles.container} > 
+          <Text>Add New Weight</Text>
+          <TextInput 
+              style={styles.input}
+              onChangeText={setWeight}
+              value={weight}
+              placeholder="Force Applied (Weight)"
+              />
+          <TextInput 
+              style={styles.input}
+              onChangeText={setWeight}
+              value={weight}
+              placeholder="Sets"
+              />
+
+          <MuscleDropDown />
+
+            
+          <Button onPress = {onButtonSubmit} title="Add Workout" ></Button>
+        </View>
         
 
 
@@ -102,7 +125,7 @@ const styles = StyleSheet.create({
     margin : 20 , 
     backgroundColor : 'white' ,
     color :  'black',
-    height: 200, 
+    height: 'auto', 
     borderRadius : 20
   },
   

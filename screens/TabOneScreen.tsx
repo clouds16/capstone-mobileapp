@@ -46,10 +46,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     }, [] )
 
 
-  function buttonPress() {
-    return "Some Text"
-  }
-
 
   return (
     <View style={styles.page}>
