@@ -1,6 +1,6 @@
 import * as React  from 'react';
 import {useState , useEffect , useContext} from 'react'
-import { StyleSheet , Button, TextInput , ScrollView , SafeAreaView , Image} from 'react-native';
+import { StyleSheet , Button, TextInput , ScrollView , SafeAreaView , Image, TouchableOpacity} from 'react-native';
 
 import {Line } from 'react-chartjs-2'
 import { Text, View } from '../../components/Themed';
@@ -15,6 +15,32 @@ function Chart( { style , title }:any) {
     let [xaxis, setXAxis ] = useState([])
     let [yaxis, setYAxis] = useState([])
     const [loading, setLoading] = useState(false);
+
+
+    function reloadPage() {
+      Axios.get(myContext.BACKENDSERVER+ '/profile/' + myContext.USERID + '/weighthistory')
+      .then( (res) =>  {
+        console.log(res); 
+        
+        let dates = res.data.dates;
+        let datesarr : [] = [] ;
+
+        console.log("1")
+
+        dates.forEach( (date:string ) => {
+          
+          datesarr.push( date.slice(0,10) );
+          console.log("loop")
+
+        })
+
+        console.log("2")
+        setXAxis( datesarr)
+        setYAxis(res.data.weight);
+
+        }).catch( e =>{
+          alert("Could not find data")});
+    }
 
     useEffect(()=> {
       
@@ -69,7 +95,9 @@ function Chart( { style , title }:any) {
 
       return (
         <View style={style}>
-          <Line data={data} options={options} />
+          <TouchableOpacity onPress={reloadPage} >
+            <Line data={data} options={options} />
+          </TouchableOpacity>        
         </View>
 
       )

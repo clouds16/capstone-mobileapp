@@ -89,7 +89,7 @@ function BottomTabNavigator() {
         component={TabThreeScreen}
         options={{
           title: 'Add Metrics',
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: 'green',
           tabBarIcon: ({ color }) => <TabBarIcon  name="plus" color={color} />,
         }}
       />
@@ -132,10 +132,18 @@ function LoginNavigator() {
 
   return (
     <LoginTabs.Navigator
-      initialRouteName="Signup"
+      initialRouteName="Login"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
+        <LoginTabs.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: 'Login',
+          tabBarIcon: ({ color }) => <TabBarIcon name="link" color={color} />,
+        }}
+      />
       <LoginTabs.Screen
         name="Signup"
         component={SignupScreen}
@@ -144,14 +152,7 @@ function LoginNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
-      <LoginTabs.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          title: 'Login',
-          tabBarIcon: ({ color }) => <TabBarIcon name="link" color={color} />,
-        }}
-      />
+      
 
     </LoginTabs.Navigator>
   );

@@ -15,7 +15,7 @@ import {Dropdown } from 'react-native-element-dropdown'
 import MuscleDropDown from './components/muscledropdown'
 import UnitDropdown from './components/unitsdropdown'
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function TabOneScreen({ navigation }: any) {
 
   const myContext =  useContext(AppContext);
 
@@ -31,6 +31,10 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
 
+  function refreshPage() {
+    window.location.reload()
+  }
+
 
   function onButtonSubmit() {
     Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/updateweight' , {
@@ -40,6 +44,9 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     }).then(  (res)=> {
       console.log(res)
       alert("Data Successfully Submitted!")
+      navigation.push('Profile')
+      //refreshPage()
+      
       
 
     } ).catch( (e) => alert(e))
@@ -54,7 +61,10 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       user:  myContext.USERID ,  
     }).then(  (res)=> {
       alert('Data Successfully Submitted!')
+      
       console.log(res)
+      navigation.push('Profile')
+      //refreshPage()
 
     } ).catch( (e) => {
       alert(e)
@@ -63,7 +73,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   
 
   return (
-    <View style={styles.page}>
+
       <ScrollView>
 
         <View style= {styles.container}> 
@@ -105,7 +115,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
 
       </ScrollView>
-    </View>
+    
   );
 }
 

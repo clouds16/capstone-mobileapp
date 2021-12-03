@@ -8,8 +8,7 @@ import { RootTabScreenProps } from '../types';
 import Axios from 'axios'
 import AppContext from '../components/AppContext'
 
-
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'>) {
+export default function TabOneScreen({ navigation }: any) {
 
 
   const myContext =  useContext(AppContext);
@@ -28,7 +27,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'
       'lname' : lname, 
       'email' : email,
       'password' : password, 
-      'phone' : phone
+      'phone' : "1" + phone
     }).then( (res) => {
       alert("Account Successfully Created")
       console.log(res);

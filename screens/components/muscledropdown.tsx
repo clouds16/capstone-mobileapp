@@ -43,7 +43,7 @@ import { Dropdown } from 'react-native-element-dropdown';
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
+          placeholder={!isFocus ? 'Muscle Group..' : '...'}
           searchPlaceholder="Search..."
           value={value}
           onFocus={() => setIsFocus(true)}

@@ -1,6 +1,6 @@
 import * as React  from 'react';
 import {useState} from 'react'
-import { StyleSheet , Button, TextInput , Image, ScrollView } from 'react-native';
+import { StyleSheet , Button, TextInput , Image, ScrollView, TouchableOpacity } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -10,7 +10,10 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 import Chart from './components/chart'
 import WorkoutChart from './components/workoutcharts'
 
-export default function TabOneScreen({ navigation }:RootTabScreenProps<'TabFour'>) {
+export default function TabOneScreen({ navigation }: any) {
+
+
+  const musclegroups = ['chest' , 'arms' , 'triceps' , 'biceps' , 'legs' , 'core' , 'abs' , 'shoulders' , 'back']
 
   return (
 
@@ -20,8 +23,19 @@ export default function TabOneScreen({ navigation }:RootTabScreenProps<'TabFour'
         <Text> Recent Achievements </Text>
         <Chart title="Weight over Time"  style={styles.container}  />
 
-        <Text> Chest Workouts by Force </Text>
-        <WorkoutChart title= "Test" style={styles.container} musclegroup="chest" property="force"  />
+        {
+          musclegroups.map( (item)=> {
+  
+            return (
+              <>  
+              
+              <Text> {item} Workouts by Force </Text>
+              <WorkoutChart title= { {item} + " : Force over Time"} style={styles.container} musclegroup= {item}  />
+              
+              </>
+            )
+          } )
+        }
  
 
 

@@ -1,6 +1,6 @@
 import * as React  from 'react';
 import {useState , useEffect , useContext} from 'react'
-import { StyleSheet , Button, TextInput , ScrollView , SafeAreaView , Image} from 'react-native';
+import { StyleSheet , Button, TextInput , ScrollView , SafeAreaView , Image, TouchableOpacity} from 'react-native';
 
 import {Line } from 'react-chartjs-2'
 import { Text, View } from '../../components/Themed';
@@ -8,40 +8,42 @@ import Axios from 'axios'
 import AppContext from '../../components/AppContext'
 
 
-function Chart( { style , title , musclegroup , property }:any) {
+function Chart( { style , title , musclegroup }:any) {
 
   const myContext =  useContext(AppContext);
 
     let [importdata , setData ] = useState([])
-    let [xaxis, setXAxis ] = useState([])
-    let [yaxis, setYAxis] = useState([])
+    let [datesarr, setDatesarr ] = useState([])
+    let [force, setForce] = useState([])
+    let [sets , setSetValue] = useState(null)
 
-    const [loading, setLoading] = useState(false);
-
-    useEffect(()=> {
-      
+    function reloadPage() {
       console.log(myContext.BACKENDSERVER , myContext.USERID)
-        Axios.get(myContext.BACKENDSERVER+ '/profile/' + myContext.USERID + '/workouthistory')
+        Axios.get(myContext.BACKENDSERVER+ '/profile/' + myContext.USERID + '/workouthistory/' + musclegroup)
           .then( (res) =>  {
             
             console.log("data is now: " , res.data)
             setData( res.data)
+            setDatesarr( res.data.dates)
+            setForce(res.data.force)
+            setSetValue(res.data.sets)
+
+            }).catch( e =>{
+              alert("Could not find data")});
+    }
+
+    useEffect(()=> {
+      
+      console.log(myContext.BACKENDSERVER , myContext.USERID)
+        Axios.get(myContext.BACKENDSERVER+ '/profile/' + myContext.USERID + '/workouthistory/' + musclegroup)
+          .then( (res) =>  {
             
-            let dates:any = [] ;
-            let values:any = []
-
-            res.data.map( (item) => {
-              if (item.musclegroup ==  musclegroup) {
-                dates.append(item.createdAt)
-                values.append(item[property])
-              } else {
-                console.log("nada")
-              }
-            })
-
-
-            setXAxis(dates)
-            setYAxis(values)
+            console.log("data is now: " , res.data)
+            setData( res.data)
+          
+            setDatesarr(res.data.dates)
+            setForce(res.data.force)
+            setSetValue(res.data.sets)
 
             
 
@@ -52,11 +54,11 @@ function Chart( { style , title , musclegroup , property }:any) {
       }, [] )
   
     const data = {
-        labels: xaxis,
+        labels: datesarr,
         datasets: [
           {
             label: title,
-            data: yaxis,
+            data: force,
             fill: false,
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgba(255, 99, 132, 0.2)',
@@ -76,7 +78,9 @@ function Chart( { style , title , musclegroup , property }:any) {
 
       return (
         <View style={style}>
-          <Line data={data} options={options} />
+          <TouchableOpacity onPress={reloadPage} > 
+            <Line data={data} options={options} />
+          </TouchableOpacity> 
         </View>
 
       )
