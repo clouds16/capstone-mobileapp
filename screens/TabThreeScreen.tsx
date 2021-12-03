@@ -13,21 +13,24 @@ import Chart from './components/chart'
 import AppContext from '../components/AppContext'
 import {Dropdown } from 'react-native-element-dropdown'
 import MuscleDropDown from './components/muscledropdown'
+import UnitDropdown from './components/unitsdropdown'
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
   const myContext =  useContext(AppContext);
 
 
-
+  let [muscleValue , setMuscleValue] = useState(null)
+  let [units, setUnits] =  useState(null)
+  let [secondaryUnits, setSecondaryUnits] = useState(null)
 
   let [weight, setWeight] = useState("")
+  let [force , setForce] = useState("")
+  let [sets, setSet] = useState("")
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [units, setUnits] = useState([
-    {label: 'lbs', value: 'lbs'},
-    {label: 'kg', value: 'kg'}
-  ]);
+
 
   function onButtonSubmit() {
     Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/updateweight' , {
@@ -36,34 +39,28 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       user:  myContext.USERID ,  
     }).then(  (res)=> {
       console.log(res)
-      createTwoButtonAlert()
-    } ).catch( e=> console.log(e))
+      alert("Data Successfully Submitted!")
+      
+
+    } ).catch( (e) => alert(e))
   }
+  
+  function onButtonSubmitWorkout() {
+    Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/addworkout' , {
+      force : Number(force) ,
+      sets : Number(sets),
+      units:  secondaryUnits, 
+      musclegroup : muscleValue , 
+      user:  myContext.USERID ,  
+    }).then(  (res)=> {
+      alert('Data Successfully Submitted!')
+      console.log(res)
 
-
-  const [muscleGroup, setMuscleGroup] = useState([
-    {label: 'Shoulders', value: 'shoulders'},
-    {label: 'Bicep', value: 'bicep'},
-    {label: 'Tricep', value: 'tricep'},
-    {label: 'Upper Back', value: 'uback'},
-    {label: 'Lower Back', value: 'lback'},
-    {label: 'Calves', value: 'calves'},
-    {label: 'Legs', value: 'legs'}
-  ]);
-
-  const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+    } ).catch( (e) => {
+      alert(e)
+    });
+  };
+  
 
   return (
     <View style={styles.page}>
@@ -77,14 +74,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
               value={weight}
               placeholder="Enter Weight"
               keyboardType="numeric" />
-          <DropDownPicker 
-              style= {styles.dropdown}
-              open={open}
-              value={value}
-              items={units}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setUnits}/>
+          <UnitDropdown value={units} setValue={setUnits} />
+     
           <Button onPress = {onButtonSubmit} title="Add new weight" ></Button>
         </View>
 
@@ -92,21 +83,23 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           <Text>Add New Weight</Text>
           <TextInput 
               style={styles.input}
-              onChangeText={setWeight}
-              value={weight}
+              onChangeText={setForce}
+              value={force}
               placeholder="Force Applied (Weight)"
               />
           <TextInput 
               style={styles.input}
-              onChangeText={setWeight}
-              value={weight}
+              onChangeText={setSet}
+              value={sets}
               placeholder="Sets"
               />
+          
+          <UnitDropdown value={secondaryUnits} setValue={setSecondaryUnits} />
 
-          <MuscleDropDown />
+          <MuscleDropDown value={muscleValue} setValue={setMuscleValue} />
 
             
-          <Button onPress = {onButtonSubmit} title="Add Workout" ></Button>
+          <Button onPress = {onButtonSubmitWorkout} title="Add Workout" ></Button>
         </View>
         
 
@@ -174,10 +167,3 @@ const styles = StyleSheet.create({
 });
 
 
-// {/* <Button onPress={buttonPress} title="Add New Workout" > </Button>
-// <Collapsible collapsed={isButton1} style={ styles.collapsed}>
-//   <Text > Some text that should be Button1</Text>
-  
-
-//   <Button onPress={()=> console.log("is pressed")} title="Submit"></Button>
-// </Collapsible> */}

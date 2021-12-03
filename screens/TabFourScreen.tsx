@@ -8,6 +8,7 @@ import { RootTabScreenProps } from '../types';
 import {Line } from 'react-chartjs-2'
 import YoutubePlayer from 'react-native-youtube-iframe';
 import Chart from './components/chart'
+import WorkoutChart from './components/workoutcharts'
 
 export default function TabOneScreen({ navigation }:RootTabScreenProps<'TabFour'>) {
 
@@ -19,16 +20,9 @@ export default function TabOneScreen({ navigation }:RootTabScreenProps<'TabFour'
         <Text> Recent Achievements </Text>
         <Chart title="Weight over Time"  style={styles.container}  />
 
-        <Text> Recent Achievements </Text>
-        <Chart title="Arm workout in last month"  style={styles.container}  />
-
-        <Text> Recent Achievements </Text>
-        <Chart title="Bicep Workout"  style={styles.container}  />
-        
-
-        <Text> Recent Achievements </Text>
-        <Chart title="Leg Workout"  style={styles.container}  />
-        
+        <Text> Chest Workouts by Force </Text>
+        <WorkoutChart title= "Test" style={styles.container} musclegroup="chest" property="force"  />
+ 
 
 
       </ScrollView>

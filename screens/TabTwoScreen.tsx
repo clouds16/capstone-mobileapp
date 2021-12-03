@@ -26,7 +26,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   return (  
       <ScrollView style={styles.scrollview}>
         {
-          videos.map( (video) => {
+          videos.map( (video:any) => {
             return (
             <>
             <Text> {video.title} </Text> 
@@ -71,5 +71,38 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     color: 'rgba(255,255,255)'
+  },
+  dropdown: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });

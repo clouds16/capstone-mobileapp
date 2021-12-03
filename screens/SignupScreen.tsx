@@ -30,10 +30,12 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Signup'
       'password' : password, 
       'phone' : phone
     }).then( (res) => {
+      alert("Account Successfully Created")
       console.log(res);
       myContext.SETUSERID(res.data._id)
       navigation.push('Profile')
     }).catch( e => {
+      alert("Account could not be created, make sure password is at least characters and does not contain the word 'password'")
       console.log("could not create user")
     })
   }

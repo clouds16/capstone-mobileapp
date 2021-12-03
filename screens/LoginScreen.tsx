@@ -28,6 +28,8 @@ export default function TabOneScreen({ navigation } : RootTabScreenProps<'Login'
         "email" : email ,
         "password" : password
       } ).then( (res) => {
+
+        alert("Login Succcessful")
         if (res.data._id) {
           myContext.SETUSERID(res.data._id)
           navigation.push('Profile')
@@ -35,6 +37,7 @@ export default function TabOneScreen({ navigation } : RootTabScreenProps<'Login'
           console.log("couldnt not sign in")
         }
       }).catch( (e) => {
+        alert("Login Unsuccessful")
         console.log(e)
       })
     } else {

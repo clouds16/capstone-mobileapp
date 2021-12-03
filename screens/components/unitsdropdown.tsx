@@ -4,14 +4,9 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 
   const data = [
-    { label: 'arms', value: 'arms' },
-    { label: 'biceps', value: 'biceps' },
-    { label: 'triceps', value: 'triceps' },
-    { label: 'shoulders', value: 'shoulders' },
-    { label: 'core', value: 'core' },
-    { label: 'legs', value: 'legs' },
-    { label: 'back', value: 'back' },
-    { label: 'chest', value: 'chest' },
+    { label: 'pounds', value: 'lbs' },
+    { label: 'kilograms', value: 'kg' },
+
   ];
 
   const DropdownComponent = ( {value, setValue}:any ) => {
