@@ -37,42 +37,46 @@ export default function TabOneScreen({ navigation }: any) {
 
 
   function onButtonSubmit() {
-    Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/updateweight' , {
-      weight: Number(weight) ,
-      units:  "lbs" , 
-      user:  myContext.USERID ,  
-    }).then(  (res)=> {
-      console.log(res)
-      alert("Data Successfully Submitted!")
-      navigation.push('Profile')
-      //refreshPage()
-      
-      
+    try {
+      Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/updateweight' , {
+        weight: Number(weight) ,
+        units:  "lbs" , 
+        user:  myContext.USERID ,  
+      }).then(  (res)=> {
+        console.log(res)
+        alert("Data Successfully Submitted!")
+        navigation.push('Profile')
+        //refreshPage() 
+      } )
+    } catch (e) {
+      alert(e)
+    }
 
-    } ).catch( (e) => alert(e))
+    
   }
 
   //new line 
   
   function onButtonSubmitWorkout() {
-    Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/addworkout' , {
-      force : Number(force) ,
-      sets : Number(sets),
-      units:  secondaryUnits, 
-      musclegroup : muscleValue , 
-      user:  myContext.USERID ,  
-    }).then(  (res)=> {
-      alert('Data Successfully Submitted!')
-      
-      console.log(res)
-      navigation.push('Profile')
-      //refreshPage()
+    try {
+      Axios.post( myContext.BACKENDSERVER + '/profile/' + myContext.USERID + '/addworkout' , {
+        force : Number(force) ,
+        sets : Number(sets),
+        units:  secondaryUnits, 
+        musclegroup : muscleValue , 
+        user:  myContext.USERID ,  
+      }).then(  (res)=> {
+        alert('Data Successfully Submitted!')
+        
+        console.log(res)
+        navigation.push('Profile')
+      });
 
-    } ).catch( (e) => {
-      alert(e)
-    });
+    } catch (e) {
+
+    alert(e)
   };
-  
+};
 
   return (
 
