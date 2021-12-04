@@ -1,6 +1,6 @@
 import * as React  from 'react';
 import {useState , useContext } from 'react'
-import { StyleSheet , Button, TextInput  , Alert } from 'react-native';
+import { StyleSheet , Button, TextInput  , Alert , ScrollView } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -45,7 +45,8 @@ export default function TabOneScreen({ navigation }: any) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView>
+      <View style={styles.container}>
       <Text style={styles.logo} > MOTIVATR! </Text> 
       <Text style={styles.title}>Create An Account!</Text>
 
@@ -93,6 +94,8 @@ export default function TabOneScreen({ navigation }: any) {
 
 
     </View>
+    </ScrollView>
+    
   );
 }
 
