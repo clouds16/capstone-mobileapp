@@ -50,9 +50,7 @@ export default function TabOneScreen({ navigation }: any) {
       } )
     } catch (e) {
       alert(e)
-    }
-
-    
+    }   
   }
 
   //new line 

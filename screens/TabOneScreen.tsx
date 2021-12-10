@@ -9,6 +9,7 @@ import {Line } from 'react-chartjs-2'
 import YoutubePlayer from 'react-native-youtube-iframe';
 import Axios from 'axios'
 import Chart from './components/chart'
+import SelectVideo from './components/randomvid'
 import AppContext from '../components/AppContext'
 
 
@@ -23,6 +24,11 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     userID: ""
   })
 
+
+
+  let date = new Date()
+  let Days = ['Sunday', 'Monday', "Tuesday" , 'Wednesday' , 'Thrusday' , 'Friday' , 'Saturday']
+  
     useEffect(()=> {
       Axios.get(myContext.BACKENDSERVER+ '/profile/' + myContext.USERID)
         .then( (res) =>  {
@@ -39,8 +45,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         })
           .catch( e=> console.log( " Could not gather info"))
 
-      //Axios.get(BackendURL + '/profile/' + userID + '/' )
-
 
         
     }, [] )
@@ -51,12 +55,14 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   
       <ScrollView > 
         <Text> Welcome {userInfo.fname } ,{userInfo.lname} </Text>
-
+        <Text> Today is { Days[date.getDay()]} </Text>
         <View style= {styles.profile}> 
           
           <Image source={require('../assets/images/avatar.png')} style={styles.image} ></Image>
+
           <View style={styles.userinfo}> 
             <Text> Hello {userInfo.fname} , {userInfo.lname} </Text>
+            
             <Text> Workout Goal :  </Text>
             <Text> Workout Schedule : Three Times a Week </Text>
             <Text> Current Weight: </Text>
@@ -69,9 +75,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
         <Text> Upcoming Workouts </Text>
 
-        <View style={styles.container}>
-        <YoutubePlayer height={300} play={true} videoId={'6_hfafaneag'}/>
-        </View>
+        <SelectVideo />
 
       </ScrollView>
 

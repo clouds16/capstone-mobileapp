@@ -29,7 +29,7 @@ export default function TabOneScreen({ navigation } : RootTabScreenProps<'Login'
         "password" : password
       } ).then( (res) => {
 
-        alert("Login Succcessful")
+        
         if (res.data._id) {
           myContext.SETUSERID(res.data._id)
           navigation.push('Profile')
