@@ -28,9 +28,13 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         {
           videos.map( (video:any) => {
             return (
-            <>
-            <Text> {video.title} </Text> 
-            <YoutubePlayer height= {300} play={true} videoId={video.uri} /> </>)
+            <View style= {styles.container}> 
+              <Text style={styles.title}> {video.title} , Workout for {video.muscle} </Text> 
+              
+              <YoutubePlayer height= {300} play={true} videoId={video.uri} /> 
+              <Text style={styles.title}> {video.description} </Text> 
+            </View> )
+            
           })
         }
       </ScrollView>  
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
     margin : 10 , 
     backgroundColor : 'white' ,
     color :  'black',
-    height: 'auto', 
+    height: 250, 
     borderRadius : 20
   },
   scrollview: {
@@ -59,6 +63,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    color : 'black'
   },
   separator: {
     marginVertical: 30,
